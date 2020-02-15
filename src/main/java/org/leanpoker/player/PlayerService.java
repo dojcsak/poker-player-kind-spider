@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class PlayerService {
 
-    static final String VERSION = "Rainman player Chen 9.0";
+    static final String VERSION = "Safer Rainman player Chen 9.0";
 
     private RankService rankService = new RankService();
 
@@ -29,10 +29,10 @@ public class PlayerService {
                         if (gameState.getBigBlind() < call(gameState)) {
                             return fold();
                         } else {
-                            return raise(gameState);
+                            return call(gameState);
                         }
                     } else {
-                        return allIn();
+                        return raise(gameState);
                     }
                 } else {
                     List<Card> cards = new ArrayList<>(gameState.getCommunityCards());
