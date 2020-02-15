@@ -65,6 +65,7 @@ public class PlayerService {
         return Integer.MAX_VALUE;
     }
 
+    // http://www.thepokerbank.com/strategy/basic/starting-hand-selection/chen-formula/
     public static int chenPreflopScore(Card card1, Card card2) {
         var c1v = card1.chenValue();
         var c2v = card2.chenValue();
