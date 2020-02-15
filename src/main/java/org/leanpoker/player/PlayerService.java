@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class PlayerService {
 
-    static final String VERSION = "Kind Rainman player Bugfix";
+    static final String VERSION = "Safe Rainman player";
 
     private RankService rankService = new RankService();
 
@@ -26,7 +26,11 @@ public class PlayerService {
             if (!holeCards.isEmpty()) {
                 if (isPreflop(gameState)) {
                     if (holeCards.get(0).getValue() == holeCards.get(1).getValue()) {
-                        return allIn();
+                        if (holeCards.get(0).getValue() > 10) {
+                            return allIn();
+                        } else {
+                            return call(gameState);
+                        }
                     } else {
                         return fold();
                     }
