@@ -65,7 +65,7 @@ public class PlayerService {
         return Integer.MAX_VALUE;
     }
 
-    private int chenPreflopScore(Card card1, Card card2) {
+    public static int chenPreflopScore(Card card1, Card card2) {
         var c1v = card1.chenValue();
         var c2v = card2.chenValue();
         var score = Math.max(c1v, c2v);
