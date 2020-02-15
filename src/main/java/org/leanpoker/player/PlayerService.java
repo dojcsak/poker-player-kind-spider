@@ -1,6 +1,5 @@
 package org.leanpoker.player;
 
-import com.google.gson.JsonElement;
 import org.leanpoker.player.model.Card;
 import org.leanpoker.player.model.GameState;
 import org.leanpoker.player.model.Player;
@@ -13,7 +12,7 @@ import java.util.Map;
 
 public class PlayerService {
 
-    static final String VERSION = "Rainman player v5";
+    static final String VERSION = "Safer Rainman player";
 
     private RankService rankService = new RankService();
 
@@ -25,22 +24,15 @@ public class PlayerService {
 
             if (!holeCards.isEmpty()) {
                 if (isPreflop(gameState)) {
-                    if (holeCards.get(0).getValue() == holeCards.get(1).getValue()) {
-                        if (holeCards.get(0).getValue() > 10) {
-                            return allIn();
+                    var chenScore = chenPreflopScore(holeCards);
+                    if (chenScore <= 7.5) {
+                        if (gameState.getBigBlind() < call(gameState)) {
+                            return fold();
                         } else {
-                            if (call(gameState) <= 400) {
-                                return call(gameState);
-                            } else {
-                                return fold();
-                            }
+                            return raise(gameState);
                         }
                     } else {
-                        if (call(gameState) <= 200) {
-                            return call(gameState);
-                        } else {
-                            return fold();
-                        }
+                        return allIn();
                     }
                 } else {
                     List<Card> cards = new ArrayList<>(gameState.getCommunityCards());
@@ -116,6 +108,17 @@ public class PlayerService {
         return Integer.MAX_VALUE;
     }
 
+    private boolean hasHighChenValue(List<Card> holeCards) {
+        if (chenPreflopScore(holeCards) > 7.5) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isPair(List<Card> holeCards) {
+        return holeCards.get(0).getValue() == holeCards.get(1).getValue();
+    }
+
     private boolean isPreflop(GameState gameState) {
         return gameState.getCommunityCards().isEmpty();
     }
@@ -145,7 +148,8 @@ public class PlayerService {
                 score -= 5;
                 break;
         }
-        if (!isPair && c1v < Card.QUEEN_CHEN_CARD_VALUE && c2v < Card.QUEEN_CHEN_CARD_VALUE && gap <= 1) score += 1.0;
+        if (!isPair && c1v < Card.QUEEN_CHEN_CARD_VALUE && c2v < Card.QUEEN_CHEN_CARD_VALUE && gap <= 1)
+            score += 1.0;
         return (int) Math.ceil(score);
         /*
         highest card /2
@@ -154,6 +158,10 @@ public class PlayerService {
         gap
         Add 1 point if there is a 0 or 1 card gap and both cards are lower than a Q.
         */
+    }
+
+    public static int chenPreflopScore(List<Card> holeCards) {
+        return chenPreflopScore(holeCards.get(0), holeCards.get(1));
     }
 
     private Player getPlayer(GameState gameState) {
