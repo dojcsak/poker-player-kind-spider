@@ -35,4 +35,37 @@ public class Card {
                 throw new RuntimeException();
         }
     }
+
+    public double chenValue() {
+        switch (rank) {
+            case "2":
+                return 1.0;
+            case "3":
+                return 1.5;
+            case "4":
+                return 2;
+            case "5":
+                return 2.5;
+            case "6":
+                return 3;
+            case "7":
+                return 3.5;
+            case "8":
+                return 4;
+            case "9":
+                return 4.5;
+            case "10":
+                return 5.0;
+            case "J":
+                return 6.0;
+            case "Q":
+                return 7.0;
+            case "K":
+                return 8.0;
+            case "A":
+                return 10.0;
+            default:
+                throw new RuntimeException();
+        }
+    }
 }
