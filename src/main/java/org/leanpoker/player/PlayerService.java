@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class PlayerService {
 
-    static final String VERSION = "Brave Rainman player";
+    static final String VERSION = "Lean Rainman player";
 
     private RankService rankService = new RankService();
 
@@ -28,7 +28,7 @@ public class PlayerService {
                     if (holeCards.get(0).getValue() == holeCards.get(1).getValue()) {
                         return allIn();
                     } else {
-                        return call(gameState);
+                        return fold();
                     }
                 } else {
                     List<Card> cards = new ArrayList<>(gameState.getCommunityCards());
