@@ -30,4 +30,6 @@ public class GameState {
     private int currentBuyIn;
 
     private int pot;
+
+    private int minimumRaise;
 }
