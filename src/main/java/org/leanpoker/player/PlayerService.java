@@ -1,14 +1,13 @@
 package org.leanpoker.player;
 
 import com.google.gson.JsonElement;
+import org.leanpoker.player.model.GameState;
 
-import java.util.Map;
-
-public class Player {
+public class PlayerService {
 
     static final String VERSION = "Crazy player";
 
-    public static int betRequest(JsonElement request) {
+    public int betRequest(GameState gameState) {
         return Integer.MAX_VALUE;
     }
 
