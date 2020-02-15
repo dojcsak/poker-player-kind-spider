@@ -38,6 +38,8 @@ buildscript {
 }
 
 dependencies {
+    compile 'org.apache.httpcomponents:fluent-hc:4.5.11'
+
     def lombokVersion = '1.18.12'
     compileOnly "org.projectlombok:lombok:${lombokVersion}"
     annotationProcessor "org.projectlombok:lombok:${lombokVersion}"

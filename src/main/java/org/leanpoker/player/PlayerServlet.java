@@ -35,7 +35,7 @@ public class PlayerServlet extends HttpServlet {
         if (req.getParameter("action").equals("showdown")) {
             String gameState = req.getParameter("game_state");
 
-            PlayerService.showdown(new JsonParser().parse(gameState));
+            playerService.showdown(gson.fromJson(gameState, GameState.class));
         }
         if (req.getParameter("action").equals("version")) {
             resp.getWriter().print(PlayerService.VERSION);

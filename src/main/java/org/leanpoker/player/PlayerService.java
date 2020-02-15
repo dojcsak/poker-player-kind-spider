@@ -4,12 +4,19 @@ import com.google.gson.JsonElement;
 import org.leanpoker.player.model.Card;
 import org.leanpoker.player.model.GameState;
 import org.leanpoker.player.model.Player;
+import org.leanpoker.player.model.Rank;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PlayerService {
 
-    static final String VERSION = "Mad player";
+    static final String VERSION = "Rainman player";
+
+    private RankService rankService = new RankService();
+
+    private Map<String, Rank> rankCache = new HashMap<>();
 
     public int betRequest(GameState gameState) {
         try {
@@ -36,6 +43,9 @@ public class PlayerService {
         return gameState.getCurrentBuyIn() - getPlayer(gameState).getBet();
     }
 
-    public static void showdown(JsonElement game) {
+    public void showdown(GameState gameState) {
+        if (rankCache.containsKey(gameState.getGameId())) {
+            rankCache.remove(gameState.getGameId());
+        }
     }
 }
