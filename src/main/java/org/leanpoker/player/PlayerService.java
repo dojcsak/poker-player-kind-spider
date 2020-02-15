@@ -20,12 +20,11 @@ public class PlayerService {
     private Map<String, Rank> rankCache = new HashMap<>();
 
     public int betRequest(GameState gameState) {
-        boolean isPreflop = gameState.getCommunityCards().isEmpty();
         try {
             List<Card> holeCards = getPlayer(gameState).getHoleCards();
 
             if (!holeCards.isEmpty()) {
-                if (isPreflop) {
+                if (isPreflop(gameState)) {
                     if (holeCards.get(0).getValue() == holeCards.get(1).getValue()) {
                         return allIn();
                     } else {
@@ -95,6 +94,10 @@ public class PlayerService {
             e.printStackTrace();
         }
         return Integer.MAX_VALUE;
+    }
+
+    private boolean isPreflop(GameState gameState) {
+        return gameState.getCommunityCards().isEmpty();
     }
 
     // http://www.thepokerbank.com/strategy/basic/starting-hand-selection/chen-formula/
