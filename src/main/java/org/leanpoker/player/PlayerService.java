@@ -25,7 +25,7 @@ public class PlayerService {
             if (!holeCards.isEmpty()) {
                 if (isPreflop(gameState)) {
                     var chenScore = chenPreflopScore(holeCards);
-                    if (chenScore <= 7.5) {
+                    if (chenScore <= 8.5) {
                         if (gameState.getBigBlind() < call(gameState)) {
                             return fold();
                         } else {
