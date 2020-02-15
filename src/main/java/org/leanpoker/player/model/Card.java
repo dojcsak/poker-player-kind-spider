@@ -7,6 +7,7 @@ import lombok.Data;
 @Data
 public class Card {
 
+    public static final double QUEEN_CHEN_CARD_VALUE = 7.0;
     private String rank;
 
     private String suit;
@@ -59,7 +60,7 @@ public class Card {
             case "J":
                 return 6.0;
             case "Q":
-                return 7.0;
+                return QUEEN_CHEN_CARD_VALUE;
             case "K":
                 return 8.0;
             case "A":

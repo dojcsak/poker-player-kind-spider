@@ -109,7 +109,8 @@ public class PlayerService {
         var c1v = card1.chenValue();
         var c2v = card2.chenValue();
         var score = Math.max(c1v, c2v);
-        if (c1v == c2v) score *= 2;
+        var isPair = c1v == c2v;
+        if (isPair) score *= 2;
         if (card1.getSuit() == card2.getSuit()) score += 2;
         var gap = Math.max(Math.abs(card1.getValue() - card2.getValue()) - 1, 0);
         switch (gap) {
@@ -128,6 +129,7 @@ public class PlayerService {
                 score -= 5;
                 break;
         }
+        if (!isPair && c1v < Card.QUEEN_CHEN_CARD_VALUE && c2v < Card.QUEEN_CHEN_CARD_VALUE && gap <= 1) score += 1.0;
         return (int) Math.ceil(score);
         /*
         highest card /2
