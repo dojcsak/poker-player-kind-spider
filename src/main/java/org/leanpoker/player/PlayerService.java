@@ -35,6 +35,39 @@ public class PlayerService {
         return Integer.MAX_VALUE;
     }
 
+    private int chenPreflopScore(Card card1, Card card2) {
+        var c1v = card1.chenValue();
+        var c2v = card2.chenValue();
+        var score = Math.max(c1v, c2v);
+        if (c1v == c2v) score *= 2;
+        if (card1.getSuit() == card2.getSuit()) score += 2;
+        var gap = Math.abs(card1.getValue() - card2.getValue());
+        switch (gap) {
+            case 0:
+                break;
+            case 1:
+                score -= 1;
+                break;
+            case 2:
+                score -= 2;
+                break;
+            case 3:
+                score -= 4;
+                break;
+            default:
+                score -= 5;
+                break;
+        }
+        return (int) Math.ceil(score);
+        /*
+        highest card /2
+        pair? *2
+        same suit? +2
+        gap
+        Add 1 point if there is a 0 or 1 card gap and both cards are lower than a Q.
+        */
+    }
+
     private Player getPlayer(GameState gameState) {
         return gameState.getPlayers().get(gameState.getInAction());
     }
