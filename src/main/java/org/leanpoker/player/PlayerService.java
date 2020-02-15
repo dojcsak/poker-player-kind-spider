@@ -20,11 +20,12 @@ public class PlayerService {
     private Map<String, Rank> rankCache = new HashMap<>();
 
     public int betRequest(GameState gameState) {
+        boolean isPreflop = gameState.getCommunityCards().isEmpty();
         try {
             List<Card> holeCards = getPlayer(gameState).getHoleCards();
 
             if (!holeCards.isEmpty()) {
-                if (gameState.getCommunityCards().isEmpty()) {
+                if (isPreflop) {
                     if (holeCards.get(0).getValue() == holeCards.get(1).getValue()) {
                         return allIn();
                     } else {
