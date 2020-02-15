@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class PlayerService {
 
-    static final String VERSION = "Safe Rainman player";
+    static final String VERSION = "Safe Rainman player with cache";
 
     private RankService rankService = new RankService();
 
@@ -37,11 +37,19 @@ public class PlayerService {
                 } else {
                     List<Card> cards = new ArrayList<>(gameState.getCommunityCards());
                     cards.addAll(getPlayer(gameState).getHoleCards());
-                    Rank rank = rankCache.computeIfAbsent(gameState.getGameId(), key -> rankService.getRank(cards));
 
-                    if (rank.getCards().size() != cards.size()) {
-                        rank = rankCache.put(gameState.getGameId(), rankService.getRank(cards));
+                    Rank rank = null;
+                    if (!rankCache.containsKey(gameState.getGameId())) {
+                        rank = rankService.getRank(cards);
+                        rankCache.put(gameState.getGameId(), rank);
+                    } else {
+                        rank = rankCache.get(gameState.getGameId());
+                        if (rank.getCards().size() != cards.size()) {
+                            rank = rankService.getRank(cards);
+                            rankCache.put(gameState.getGameId(), rank);
+                        }
                     }
+
 
                     boolean hasHighCard = false;
                     if (holeCards.get(0).getValue() == rank.getValue() || holeCards.get(1).getValue() == rank.getValue()) {
