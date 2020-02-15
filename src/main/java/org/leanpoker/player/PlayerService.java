@@ -29,14 +29,14 @@ public class PlayerService {
                         if (holeCards.get(0).getValue() > 10) {
                             return allIn();
                         } else {
-                            if (call(gameState) <= 200) {
+                            if (call(gameState) <= 400) {
                                 return call(gameState);
                             } else {
                                 return fold();
                             }
                         }
                     } else {
-                        if (call(gameState) <= 100) {
+                        if (call(gameState) <= 200) {
                             return call(gameState);
                         } else {
                             return fold();
