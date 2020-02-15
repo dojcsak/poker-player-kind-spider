@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class PlayerService {
 
-    static final String VERSION = "Safer Rainman player";
+    static final String VERSION = "Rainman player v5";
 
     private RankService rankService = new RankService();
 
@@ -29,14 +29,18 @@ public class PlayerService {
                         if (holeCards.get(0).getValue() > 10) {
                             return allIn();
                         } else {
-                            if (gameState.getCurrentBuyIn() <= 200) {
+                            if (call(gameState) <= 200) {
                                 return call(gameState);
                             } else {
                                 return fold();
                             }
                         }
                     } else {
-                        return fold();
+                        if (call(gameState) <= 100) {
+                            return call(gameState);
+                        } else {
+                            return fold();
+                        }
                     }
                 } else {
                     List<Card> cards = new ArrayList<>(gameState.getCommunityCards());
