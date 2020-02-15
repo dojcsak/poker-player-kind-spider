@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class PlayerService {
 
-    static final String VERSION = "Kind Rainman player";
+    static final String VERSION = "Kind Rainman player Bugfix";
 
     private RankService rankService = new RankService();
 
@@ -51,41 +51,41 @@ public class PlayerService {
 
                     switch (rank.getRank()) {
                         case 0:
-                            fold();
+                            return fold();
                         case 1:
                             if (hasHighCard) {
-                                call(gameState);
+                                return call(gameState);
                             } else {
-                                fold();
+                                return fold();
                             }
                         case 2:
                             if (hasHighCard) {
                                 if (hasSecondHighCard) {
-                                    allIn();
+                                    return allIn();
                                 } else {
-                                    raise(gameState);
+                                    return raise(gameState);
                                 }
                             } else {
-                                call(gameState);
+                                return call(gameState);
                             }
                         case 3:
                         case 4:
                         case 5:
                             if (hasHighCard) {
                                 if (hasSecondHighCard) {
-                                    allIn();
+                                    return allIn();
                                 } else {
-                                    raise(gameState);
+                                    return raise(gameState);
                                 }
                             } else {
-                                call(gameState);
+                                return call(gameState);
                             }
                         case 6:
                         case 7:
                         case 8:
-                            allIn();
+                            return allIn();
                         default:
-                            fold();
+                            return fold();
 
                     }
                 }
