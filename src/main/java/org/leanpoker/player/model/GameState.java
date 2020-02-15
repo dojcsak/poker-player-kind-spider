@@ -21,6 +21,8 @@ public class GameState {
 
     private int orbits;
 
+    private int inAction;
+
     private int dealer;
 
     List<Card> communityCards;
