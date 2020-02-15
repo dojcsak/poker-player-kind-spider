@@ -107,7 +107,7 @@ public class PlayerService {
         var score = Math.max(c1v, c2v);
         if (c1v == c2v) score *= 2;
         if (card1.getSuit() == card2.getSuit()) score += 2;
-        var gap = Math.abs(card1.getValue() - card2.getValue());
+        var gap = Math.max(Math.abs(card1.getValue() - card2.getValue()) - 1, 0);
         switch (gap) {
             case 0:
                 break;

@@ -21,4 +21,22 @@ public class ChenScoreTest {
 
         assertEquals(12, PlayerService.chenPreflopScore(ace, king));
     }
+
+    @Test
+    public void ChenOfAKDiffSuitIs10() {
+        var ace = Card.builder().rank("A").suit("x").build();
+        var king = Card.builder().rank("K").suit("not x").build();
+
+        assertEquals(10, PlayerService.chenPreflopScore(ace, king));
+    }
+
+    @Test
+    public void ChenOfTenPairIs10() {
+        assertEquals(10, PlayerService.chenPreflopScore(Card.builder().rank("10").suit("x").build(), Card.builder().rank("10").suit("not x").build()));
+    }
+
+    @Test
+    public void ChenOf57SameSuitIs6() {
+        assertEquals(6, PlayerService.chenPreflopScore(Card.builder().rank("5").suit("x").build(), Card.builder().rank("7").suit("x").build()));
+    }
 }
