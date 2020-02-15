@@ -39,10 +39,6 @@ public class PlayerService {
                         rank = rankCache.put(gameState.getGameId(), rankService.getRank(cards));
                     }
 
-                    if (rank.getRank() > 2) {
-                        call(gameState);
-                    }
-
                     switch (rank.getRank()) {
                         case 0:
                             fold();
