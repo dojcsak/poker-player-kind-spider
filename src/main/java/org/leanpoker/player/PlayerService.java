@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class PlayerService {
 
-    static final String VERSION = "Lean Rainman player";
+    static final String VERSION = "My Rainman player";
 
     private RankService rankService = new RankService();
 
@@ -39,6 +39,11 @@ public class PlayerService {
                         rank = rankCache.put(gameState.getGameId(), rankService.getRank(cards));
                     }
 
+                    boolean hasHighCard = false;
+                    if (holeCards.get(0).getValue() == rank.getValue() || holeCards.get(1).getValue() == rank.getValue()) {
+                        hasHighCard = true;
+                    }
+
                     switch (rank.getRank()) {
                         case 0:
                             fold();
@@ -48,7 +53,11 @@ public class PlayerService {
                         case 3:
                         case 4:
                         case 5:
-                            raise(gameState);
+                            if (hasHighCard) {
+                                raise(gameState);
+                            } else {
+                                call(gameState);
+                            }
                         case 6:
                         case 7:
                         case 8:
