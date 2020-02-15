@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class PlayerService {
 
-    static final String VERSION = "Safer Rainman player";
+    static final String VERSION = "Rainman player Chen 9.0";
 
     private RankService rankService = new RankService();
 
@@ -25,7 +25,7 @@ public class PlayerService {
             if (!holeCards.isEmpty()) {
                 if (isPreflop(gameState)) {
                     var chenScore = chenPreflopScore(holeCards);
-                    if (chenScore <= 8.5) {
+                    if (chenScore <= 9.0) {
                         if (gameState.getBigBlind() < call(gameState)) {
                             return fold();
                         } else {
