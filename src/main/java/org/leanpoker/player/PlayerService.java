@@ -75,7 +75,7 @@ public class PlayerService {
                                 if (hasSecondHighCard) {
                                     return allIn();
                                 } else {
-                                    return raise(gameState);
+                                    return call(gameState);
                                 }
                             } else {
                                 return call(gameState);
